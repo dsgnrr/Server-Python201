@@ -40,9 +40,9 @@ def homework():
     print("%d + %d = %d" % (val1, val2, val1+val2))
 
 def main() -> None:
-    print(hello())
-    x,y = pair()
-    printPair(x, y)
+    # print(hello())
+    # x,y = pair()
+    # printPair(x, y)
     homework()
     
 
