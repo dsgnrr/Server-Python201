@@ -1,0 +1,3 @@
+RewriteEngine on # включаємо марщрутизацію
+RewriteRule ^(\w\w)/envs/(.*)$    envs.py?lang=$1&id=$2     [END,QSA]
+RewriteRule .*      index.py    [END,QSA]  # всі запити на index.py

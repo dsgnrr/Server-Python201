@@ -1,0 +1,67 @@
+CGI - Common Gateway Interface - Інтерфейс спільного шлюзу.
+Протокол, за яким веб-сервер, як програма яка розбирає HTTP запит,
+передає результати розбору іншій програмі (скрипту), одержує
+результат його роботи та формує з нього відповідь.
+
+HTTP Request ----> :80 <----> WebServer (Apache) <----> Python
+
+Альтернатива - власний сервер або комплекс ПЗ із засобами
+оброблення HTTP-запитів
+
+Переваги-недоліки:
+CGI - високоефективний сервер, можна підібрати сертифікований
+    але це окремий продукт, що потребує встановлення.
+Власний сервер/модуль - цілісність ПЗ, але частіше за все,
+    є питання із сертифікацією, а також гірші показники з часом роботи.
+
+Налаштування.
+Apache
+    - встановити: або як самостійне ПЗ, або у збірці (XAMPP, Danver, OpenServer)
+    - налаштовуємо локальний (віртуальний) хостинг (далі на прикладі XAMPP)
+        = відкриваємо папку з налаштуваннями Apache (/xampp/apache/conf)
+        = редагуємо файл /extra/httpd-vhosts.conf -- додаємо у кінці файлу налаштування
+            <VirtualHost *:80>
+	            ServerAdmin webmaster@localhost
+	            DocumentRoot "~/path-to-project/Python/Server-Python201/cgi"
+	            ServerName py201.loc
+	            ServerAlias www.py201.loc
+	            ErrorLog "~/path-to-project/Python/Server-Python201/cgi/error.log"
+	            CustomLog "~/path-to-project/Python/Server-Python201/cgi/access.log" common
+	            <Directory "~/path-to-project/Python/Server-Python201/cgi">
+		                AllowOverride All
+		                Options -Indexes +ExecCGI
+		                AddHandler cgi-script .py
+		                Require all granted
+	            </Directory>
+            </VirtualHost>
+        = Зберігаємо файл та перезапускаємо Apache. У разі успіху у папці
+        з проєктом створюються файли error.log та access.log
+
+Local DNS
+    - редагуємо файл (у режимі адміністратора)
+        C:\Windows\System32\drivers\etc\hosts
+    - у кінець файлу дописуємо
+        127.0.0.1 py201.loc
+        127.0.0.1 www.py201.loc
+    - тестуємо
+        = у папці проєкту(.../cgi/) створюємо файл index.html з тестовми вмістом
+        = у браузері набираємо (починаючи з http://) http://py201.loc
+        повинен відкритись index.html, а у файлі access.log додається
+        повідомлення про запит сайту.
+
+CGI-script (Python)
+    - створюємо скрипт 
+    - першим рядком вказуємо розміщення інтерпретатора
+        #!D:/Programs/Python3/python.exe
+    - у режимі CGI скрипт бере на себе повне формування відповіді
+    (response), починаючи із заголовків. Перший рядок (статус-рядок)
+    додає Apache, також може додавати окремі заголовки
+        print("Content-Type: text/html")
+        print("") # заголовки від тіла відокремлюються порожнім рядком
+        print('''<!doctype html>...
+    - у браузері випробовуємо - набираємо http://py201.loc/index.py
+    - якщо все працює, то замінюємо головний стартовий файл (індекс) сайту
+    на index.py - для цього додаємо інструкцію
+    DirectoryIndex index.py
+    до означень <VirtualHost *:80> (перезапускаємо Apache)
+    після цього запит http://py201.loc/ має переводити на Python скрипт
