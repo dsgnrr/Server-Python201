@@ -1,5 +1,16 @@
 # Server-Python201 Homeworks
 
+## Homework 4 18.12
+* Auth <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/auth_en.png)
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/auth_uk.png)
+* Product <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/product_en.png)
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/product_uk.png)
+* Cart <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/cart_en.png)
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/cart_uk.png)
+
 ## Homework 2 13.12
 * code <br>
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw2/code.png)

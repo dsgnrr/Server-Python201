@@ -1,3 +1,6 @@
 RewriteEngine on # включаємо марщрутизацію
 RewriteRule ^(\w\w)/envs/(.*)$    envs.py?lang=$1&id=$2     [END,QSA]
+RewriteRule ^(\w\w)/auth/(.*)$    auth.py?lang=$1&id=$2     [END,QSA]
+RewriteRule ^(\w\w)/product/(.*)$    product.py?lang=$1&id=$2     [END,QSA]
+RewriteRule ^(\w\w)/cart/(.*)$    cart.py?lang=$1&id=$2     [END,QSA]
 RewriteRule .*      index.py    [END,QSA]  # всі запити на index.py
