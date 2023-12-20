@@ -1,5 +1,8 @@
 # Server-Python201 Homeworks
 
+## Homework 6 20.12
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw6/result.png)
+
 ## Homework 5 19.12
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw5/result.png)
 
