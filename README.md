@@ -17,6 +17,12 @@
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/cart_en.png)
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw4/cart_uk.png)
 
+## Homework 3 14.12
+* code <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw3/fraction.png)
+* result <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw3/result.png)
+
 ## Homework 2 13.12
 * code <br>
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw2/code.png)
