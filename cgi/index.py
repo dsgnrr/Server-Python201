@@ -9,7 +9,7 @@ def read_all_text(fname) -> str | None:
     except OSError as err:
         print("Read file error: ", err)
 
-page =read_all_text('main.html')
+page =read_all_text('static/main.html')
 if(page):
   print("Content-Type: text/html")
   print("") # заголовки від тіла відокремлюються порожнім рядком
