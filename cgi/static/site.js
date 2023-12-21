@@ -1,4 +1,4 @@
-function publishClick() {
+﻿function publishClick() {
     fetch("/product", {
         method:'PUT',
         headers: {

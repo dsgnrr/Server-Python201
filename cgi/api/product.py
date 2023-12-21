@@ -2,7 +2,6 @@
 
 import api_controller
 import json
-import os
 import sys
 
 class ProductController(api_controller.ApiController):
