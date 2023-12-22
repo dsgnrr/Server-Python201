@@ -9,7 +9,13 @@ import db_ini
 class ApiController:
     
 
-    def send_response(self, status_code:int=200,reason_phrase:str='OK',body:object=None)->None:
+    def send_response(self, 
+                      status_code:int=200,
+                      reason_phrase:str='OK',
+                      body:object=None,
+                      meta:object=None,
+                      data:object=None
+                      )->None:
         status_header = f"Status: {status_code}"
         if reason_phrase:
             status_header+=f" {reason_phrase}"
@@ -18,6 +24,8 @@ class ApiController:
         print("")
         if body:
             print (json.dumps(body),end="")
+        else:
+            print (json.dumps({"meta":meta, "data":data}),end="")
         exit()
     
 
