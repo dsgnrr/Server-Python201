@@ -7,7 +7,7 @@
     - Invalid auth scheme: <br>
     ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw8/auth_err.png)<br>
     - Missing auth header: <br>
-    ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw8/err2.png)
+    ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw8/auth_err2.png)
 
 ## Homework 7 21.12
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw7/result.png)
