@@ -10,8 +10,8 @@ class AuthController(api_controller.ApiController):
         try:
             login,password=base64.b64decode(auth_token, validate=True).decode().split(':',1)
         except:
-            self.send_response(401,'Unauthorized',
-                        {'message':f"Malformed credentials: Basic scheme required"})
+            self.send_response(401,'Unauthorized',meta={"service":"auth","status":401,"scheme":"Basic"},
+                               data={"message":"Malformed credentials: Basic scheme required"})
 
         db = self.get_db_or_exit()
         sql = 'SELECT * FROM users u WHERE u.`login`=%s AND u.`password`=%s'
@@ -21,15 +21,20 @@ class AuthController(api_controller.ApiController):
                                 hashlib.md5(password.encode()).hexdigest()))
                 row= cursor.fetchone()
                 if row == None:
-                    self.send_response(401,"Unauthorized",{"message":"Credentials rejected"})
+                    self.send_response(401,"Unauthorized", meta={"service":"auth", "status":401, "scheme":"Basic"}, 
+                                       data={"message":"Credentials rejected"})
                 user_data=dict(zip(cursor.column_names,row))
-                self.send_response(200,"Ok", {"auth":"success","token":str(user_data['id'])})
+                self.send_response(200,"OK",meta={"service":"auth", "status":200, "scheme":"Basic"},
+                                   data={"scheme":"Bearer","token":str(user_data['id'])})
 
         except mysql.connector.Error as err:
-            self.send_response(503, 'Service Unavaliable',repr(err))
+            self.send_response(500,"Internal Error",
+                           meta={"service":"product", "status":200, "count":0},
+                           data={"message":"Server error, see logs for details"})
 
     def do_post(self):
     # send_response(body=dict(os.environ))
-        self.send_response(body=str(self.get_bearer_token_or_exit()))
+        self.send_response(200,"OK",meta={"service":"auth", "status":200, "scheme":"Bearer"},
+                           data={"token":str(self.get_bearer_token_or_exit())})
 
 AuthController().serve()

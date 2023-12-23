@@ -24,7 +24,8 @@ function authClick() {
     })
         .then(r => r.json())
         .then(j => {
-            window.localStorage.setItem('token', j.token)
+            
+            window.localStorage.setItem('token', j.data.token)
         });
 }
 
@@ -50,12 +51,10 @@ angular
             transclude: true,
             scope: {},
             controller: function ($scope, $http) {
-                console.log('123')
                 $scope.products = [];
                 $http
                 .get('/product')
-                .then(r => {$scope.products = r.data.data
-                console.log(r)});
+                .then(r => $scope.products = r.data.data);
             },
             templateUrl:'/static/tpl/product.html',
             replace: true

@@ -31,11 +31,11 @@ class ProductController(api_controller.ApiController):
     try:
         body_data= json.loads(request_body)
     except:
-        self.send_response(400,'Bad Request',
-                      {'message':'Body must be valid JSON'})
+        self.send_response(400,'Bad Request',meta={"service":"product","count":0,"status":400},
+                      data={'message':'Body must be valid JSON'})
     if not( 'name' in body_data and 'price' in body_data ):
-        self.send_response(400,'Bad Request',
-                      {'message':"Body must include 'name' and 'price'"})
+        self.send_response(400,'Bad Request',meta={"service":"product","count":0,"status":400},
+                      data={'message':"Body must include 'name' and 'price'"})
     db = self.get_db_or_exit()
     sql = "INSERT INTO products (name, price, img_url) VALUES(%(name)s, %(price)s, %(img_url)s)"
     try:
