@@ -1,3 +1,11 @@
+import logging
+logging.basicConfig(
+    filename="logs.log",
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+    format="%(asctime)s %(levelname)s [%(filename)s::%(lineno)d] %(message)s %(args)s")
+
+
 import json
 import mysql.connector
 import os
@@ -5,6 +13,8 @@ import re
 import sys
 sys.path.append('../') # додати папку пошуку модулів
 import db_ini
+
+
 
 class ApiController:
     
@@ -43,7 +53,7 @@ class ApiController:
         if not auth_scheme.endswith(' '):
             auth_scheme+=' '
         if not auth_header_name in os.environ:
-            self.send_response(401,'Unauthorized',meta={"service":"api_controller","status":401,"scheme":"Basic"},
+            self.send_response(401,'Unauthorized',meta={"service":"api_controller","status":401,"scheme":f"{auth_scheme}"},
                           data={'message':"Missing 'Authorization' header"})
         auth_header_value = os.environ[auth_header_name]
     
