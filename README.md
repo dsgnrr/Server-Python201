@@ -7,6 +7,8 @@
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw9/cart_controller.png)<br>
 - Result: <br>
 ![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw9/result.png)
+- Result DataBase: <br>
+![alt](https://github.com/dsgnrr/Server-Python201/blob/main/Homework/hw9/result_db.png)
 
 ## Homework 8 22.12
 * Auth service messages: <br>
