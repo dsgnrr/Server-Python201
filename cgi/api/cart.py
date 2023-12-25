@@ -16,8 +16,18 @@ class CartController(api_controller.ApiController):
         except:
             self.send_response(400,'Bad Request',meta={"service":"cart","count":0,"status":400},
                       data={'message':'Body must be valid JSON'})
-        self.send_response(meta={"service":"cart", "count":1,"status":200},
-                          data={"user_id":user_id,"body_data":body_data})
+        if not "productId" in body_data:
+            self.send_response(400,'Bad Request',meta={"service":"cart","count":0,"status":400},
+                      data={'message':"Body must included productId"})
+        try:
+            dao.Cart().add(user_id, body_data["productId"])
+        except:
+            self.send_response(500,"Internal Error",
+                           meta={"service":"cart","count":0,"status":500},
+                           data={"message":"Server error, see logs for details"})
+        else: 
+            self.send_response(201,'Created',meta={"service":"cart", "count":1,"status":201},
+                          data={"message":"Created"})
 
 
 CartController().serve()
