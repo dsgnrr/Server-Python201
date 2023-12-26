@@ -1,5 +1,4 @@
 from http.server import BaseHTTPRequestHandler
-from starter import MainHandler
 
 class HomeController:
     def index(self, handler:BaseHTTPRequestHandler):
@@ -8,4 +7,11 @@ class HomeController:
         handler.send_header('Content-Type', 'text/html')
         handler.end_headers()
         with open('./http/views_home/index.html',"rb") as file:
+            handler.wfile.write(file.read())
+    def privacy(self,handler:BaseHTTPRequestHandler):
+        print("PRIVACY")
+        handler.send_response(200, 'OK')
+        handler.send_header('Content-Type', 'text/html')
+        handler.end_headers()
+        with open('./http/views_home/privacy.html',"rb") as file:
             handler.wfile.write(file.read())
