@@ -2,6 +2,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
 import sys
 import HomeController
+import ShopController
 from appconfig import WWWROOT_PATH
 
 
