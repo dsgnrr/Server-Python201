@@ -2,17 +2,41 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
 import sys
 import HomeController
+from appconfig import WWWROOT_PATH
+
 
 class MainHandler(BaseHTTPRequestHandler):
-    def do_GET(self) -> None:
+    session = {}
         
+    def __init__(self, request,client_address, server) -> None:
+        self.response_headers={}
+        super().__init__(request,client_address, server)
+        
+
+    def do_GET(self) -> None:
+        cookies_header=self.headers.get('Cookie','')
+        cookies = dict(cookie.split('=') for cookie in cookies_header.split('; ') if '=' in cookie)
+        print(cookies);
+        # self.send_header('Set-Cookie','session-id=123')
+        if 'session-id' in cookies:
+            print('Session OK')
+            pass # Є сесія для запиту
+        else:
+            self.response_headers['Set-Cookie'] = 'session-id=123'
+
+
         # для початку відокремлюємо query string TODO відокремити hash(#)
         parts = self.path.split('?')
         path=parts[0]
         query_string = parts[1] if len(parts) > 1 else None
-        print("self.path: ",self.path, query_string)
+        # print("self.path: ",self.path, query_string)
+
         # перевіряємо запит - чи це файл
-        filename ='./http' + path
+        if '../' in path or '..\\' in path:
+            self.send_404()
+            return
+        
+        filename =WWWROOT_PATH + path
         # if(self.path =='/'):
         #     filename='./http/index.html'
         # else:
@@ -36,12 +60,12 @@ class MainHandler(BaseHTTPRequestHandler):
         try:
             controller_module   = getattr(sys.modules[__name__],controller)
             controller_class    = getattr(controller_module, controller)
-            controller_instance = controller_class()
+            controller_instance = controller_class(self)
             controller_action   = getattr(controller_instance, action)
         except:
             controller_action=None
         if controller_action:
-            controller_action(self)
+            controller_action()
         else:
             self.send_404()
 
@@ -49,6 +73,9 @@ class MainHandler(BaseHTTPRequestHandler):
         
       
     def flush_file(self, filename):
+        if not os.path.isfile(filename):
+            self.send_404()
+            return
         ext = filename.split('.')[-1]
         if ext in('css','html'):
             content_type='text/'+ext
